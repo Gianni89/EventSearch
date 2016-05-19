@@ -7,7 +7,7 @@ namespace EventSearch
 {
     internal class Program
     {
-        static string _userInput;
+        private static string _userInput;
         private const int NumberOfEvents = 15;
         private static readonly Random NextInt = new Random();
         private static readonly Event[] EventArray = new Event[NumberOfEvents];
