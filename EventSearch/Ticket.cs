@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace EventSearch
+﻿namespace EventSearch
 {
     public class Ticket
     {
-        public Double price;
+        public double Price;
 
-        public Ticket(Double Price)
+        public Ticket(double price)
         {
-            this.price = Price;
+            Price = price;
         }
     }
 }

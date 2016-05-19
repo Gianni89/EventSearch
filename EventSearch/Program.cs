@@ -5,149 +5,140 @@ using System.Text.RegularExpressions;
 
 namespace EventSearch
 {
-    class Program
+    internal class Program
     {
-        static String userInput;
-        static int numberOfEvents = 15;
-        static Random nextInt = new Random();
-        static Event[] eventArray = new Event[numberOfEvents];
-        static Event[] NearestFiveEvents = new Event[5];
-        static List<string> eventList = new List<string>();
+        static string _userInput;
+        private const int NumberOfEvents = 15;
+        private static readonly Random NextInt = new Random();
+        private static readonly Event[] EventArray = new Event[NumberOfEvents];
+        private static readonly List<string> EventList = new List<string>();
 
-        static IOrderedEnumerable<KeyValuePair<int, int>> orderedPairs;
+        static IOrderedEnumerable<KeyValuePair<int, int>> _orderedPairs;
 
-        static Dictionary<int, int> eventAndDistance = new Dictionary<int, int>();
+        private static readonly Dictionary<int, int> EventAndDistance = new Dictionary<int, int>();
 
-        static bool awaitingCurrentLocation = true;
+        static bool _awaitingCurrentLocation = true;
 
-        private static readonly Regex locationRegex = new Regex(@"-?\b(\d|1[0])\b,-?\b(\d|1[0])\b"); 
-                                                                           
-        static void Main(string[] args)
+        private static readonly Regex LocationRegex = new Regex(@"-?\b(\d|1[0])\b,-?\b(\d|1[0])\b");
+
+        private static void Main()
         {
             GenerateEvents();
             Console.WriteLine("Please Input Coordinates: a,b");
 
-            while (awaitingCurrentLocation)
+            while (_awaitingCurrentLocation)
             {
-                userInput = Console.ReadLine();
+                _userInput = Console.ReadLine();
 
-                if (userInput == "exit")
+                if (_userInput == "exit")
                 {
-                    awaitingCurrentLocation = false;
+                    _awaitingCurrentLocation = false;
                 }
 
-                if (CheckCurrentLocationFormat(userInput))
+                if (CheckCurrentLocationFormat(_userInput))
                 {
                     FindNearestFiveEvents();
-                    PrintResult(orderedPairs);
-                    eventAndDistance.Clear();
+                    PrintResult(_orderedPairs);
+                    EventAndDistance.Clear();
                 }
-                else if (userInput != "exit")
+                else if (_userInput != "exit")
                 {
-                    Console.WriteLine("Please Input Coordinates with the following format: a,b within the range -10 to 10");
+                    Console.WriteLine(
+                        "Please Input Coordinates with the following format: a,b within the range -10 to 10");
                 }
             }
         }
 
-        static void GenerateEvents()
+        private static void GenerateEvents()
         {
-            int counter = 0;
+            var counter = 0;
 
-            while (counter < numberOfEvents)
+            while (counter < NumberOfEvents)
             {
-                int randLocationX = nextInt.Next(-10, 10);
-                int randLocationY = nextInt.Next(-10, 10);
+                var randLocationX = NextInt.Next(-10, 10);
+                var randLocationY = NextInt.Next(-10, 10);
 
                 if (CheckIfEventExists(randLocationX, randLocationY))
                 {
-                    randLocationX = nextInt.Next(-10, 10);
-                    randLocationY = nextInt.Next(-10, 10);
-                }
-                else
-                {
-                    int numberOfTickets = nextInt.Next(0, 5);
-                    eventArray[counter] = new Event(counter, numberOfTickets, randLocationX, randLocationY);
-                    eventArray[counter].SetTicketPrice();
+                    var numberOfTickets = NextInt.Next(0, 5);
+                    EventArray[counter] = new Event(counter, numberOfTickets, randLocationX, randLocationY);
+                    EventArray[counter].SetTicketPrice();
                     counter++;
                 }
             }
         }
 
-        static bool CheckIfEventExists(int locationX, int locationY)
+        private static bool CheckIfEventExists(int locationX, int locationY)
         {
-            string locationOfEvent = String.Format("{0}, {1}", locationX.ToString(), locationY.ToString());
+            string locationOfEvent = $"{locationX}, {locationY}";
 
-            if (eventList.Exists(locationToTry => locationToTry == locationOfEvent))
+            if (EventList.Exists(locationToTry => locationToTry == locationOfEvent))
             {
-                return true;
-            }
-            else
-            {
-                eventList.Add(locationOfEvent);
                 return false;
             }
+            EventList.Add(locationOfEvent);
+            return true;
         }
 
-        static bool CheckCurrentLocationFormat(string userInput)
+        private static bool CheckCurrentLocationFormat(string userInput)
         {
-            return locationRegex.IsMatch(userInput);
+            return LocationRegex.IsMatch(userInput);
         }
 
-        static void FindNearestFiveEvents()
+        private static void FindNearestFiveEvents()
         {
-            Char deliminator = ',';
-            String[] locationInputs = userInput.Split(deliminator);
-            int currentLocationX = int.Parse(locationInputs[0]);
-            int currentLocationY = int.Parse(locationInputs[1]);
+            const char deliminator = ',';
+            var locationInputs = _userInput.Split(deliminator);
+            var currentLocationX = int.Parse(locationInputs[0]);
+            var currentLocationY = int.Parse(locationInputs[1]);
 
-            for (int i = 0; i < numberOfEvents; i++)
+            for (var i = 0; i < NumberOfEvents; i++)
             {
-                CalculateDistance(currentLocationX, currentLocationY, eventArray[i].locationX, eventArray[i].locationY, eventArray[i].eventName);
+                CalculateDistance(currentLocationX, currentLocationY, EventArray[i].LocationX, EventArray[i].LocationY,
+                    EventArray[i].EventName);
             }
 
-            orderedPairs = SortByDistance();
+            _orderedPairs = SortByDistance();
         }
 
-        static void CalculateDistance(int currentX, int currentY, int destinationX, int destinationY, int eventName)
+        private static void CalculateDistance(int currentX, int currentY, int destinationX, int destinationY,
+            int eventName)
         {
-            int distance = Math.Abs(currentX - destinationX) + Math.Abs(currentY - destinationY);
-            eventAndDistance.Add(eventName, distance);
+            var distance = Math.Abs(currentX - destinationX) + Math.Abs(currentY - destinationY);
+            EventAndDistance.Add(eventName, distance);
         }
 
-        static IOrderedEnumerable<KeyValuePair<int, int>> SortByDistance()
+        private static IOrderedEnumerable<KeyValuePair<int, int>> SortByDistance()
         {
-            var orderedPairs =  from pair in eventAndDistance
-                                orderby pair.Value ascending
-                                select pair;
+            var orderedPairs = from pair in EventAndDistance
+                orderby pair.Value ascending
+                select pair;
             return orderedPairs;
         }
 
-        static void PrintResult(IOrderedEnumerable<KeyValuePair<int, int>> orderedPairs)
+        private static void PrintResult(IEnumerable<KeyValuePair<int, int>> orderedPairs)
         {
-            Console.WriteLine("Closest Events to ({0})", userInput);
-            int counter = 0;
+            Console.WriteLine($"Closest Events to ({_userInput})");
+            var counter = 0;
 
-            foreach (KeyValuePair<int, int> pair in orderedPairs)
+            foreach (var pair in orderedPairs)
             {
                 if (counter < 5)
                 {
-                    Console.WriteLine("Event {0} - {1}, Distance {2} ", pair.Key, CheapestOrNoTickets(pair), pair.Value);
+                    Console.WriteLine($"Event {pair.Key} - {CheapestOrNoTickets(pair)}, Distance {pair.Value} ");
                     counter++;
                 }
             }
             Console.WriteLine("Enter another location or \"exit\" to terminate");
         }
 
-        static string CheapestOrNoTickets(KeyValuePair<int, int> pair)
+        private static string CheapestOrNoTickets(KeyValuePair<int, int> pair)
         {
-            if (eventArray[pair.Key].numberOfTickets == 0)
+            if (EventArray[pair.Key].NumberOfTickets == 0)
             {
                 return "There are no tickets for this event";
             }
-            else
-            {
-                return String.Format("The cheapest ticket is ${0}", eventArray[pair.Key].FindLowestPrice());
-            }
+            return $"The cheapest ticket is ${EventArray[pair.Key].FindLowestPrice()}";
         }
     }
 }

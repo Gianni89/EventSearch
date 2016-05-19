@@ -4,51 +4,44 @@ namespace EventSearch
 {
     public class Event
     {
-        public int numberOfTickets;
-        public int locationX;
-        public int locationY;
+        public int NumberOfTickets;
+        public int LocationX;
+        public int LocationY;
 
-        public float maxPrice = 50f;
-        public float minPrice = 30f;
+        public float MaxPrice = 50f;
+        public float MinPrice = 30f;
 
-        public int eventName;
-        public Ticket[] tickets;
-        static Random randomPrice = new Random();
+        public int EventName;
+        public Ticket[] Tickets;
+        private static readonly Random RandomPrice = new Random();
 
         public Event(int index, int numberOfTickets, int locationX, int locationY)
         {
-            this.eventName = index;
-            this.numberOfTickets = numberOfTickets;
-            this.locationX = locationX;
-            this.locationY = locationY;
+            EventName = index;
+            NumberOfTickets = numberOfTickets;
+            LocationX = locationX;
+            LocationY = locationY;
         }
 
         public void SetTicketPrice()
         {
-            tickets = new Ticket[numberOfTickets];
+            Tickets = new Ticket[NumberOfTickets];
 
-            if (numberOfTickets != 0)
+            if (NumberOfTickets == 0) return;
+            for (var i = 0; i < NumberOfTickets; i++)
             {
-                for (int i = 0; i < numberOfTickets; i++)
-                {
-                    Double longPrice = randomPrice.NextDouble() * (maxPrice - minPrice) + minPrice;
-                    Double ticketPrice = Math.Round(longPrice, 2);
-                    tickets[i] = new Ticket(ticketPrice);
-                }
+                var longPrice = RandomPrice.NextDouble()*(MaxPrice - MinPrice) + MinPrice;
+                var ticketPrice = Math.Round(longPrice, 2);
+                Tickets[i] = new Ticket(ticketPrice);
             }
         }
 
-        public Double FindLowestPrice()
+        public double FindLowestPrice()
         {
-            if (numberOfTickets != 0)
-            {
-                Array.Sort(tickets, delegate (Ticket ticket1, Ticket ticket2)
-                {
-                    return ticket1.price.CompareTo(ticket2.price);
-                });
-            return tickets[0].price;
-            }
-            else return 0;
+            if (NumberOfTickets == 0) return 0;
+            Array.Sort(Tickets,
+                (ticket1, ticket2) => ticket1.Price.CompareTo(ticket2.Price));
+            return Tickets[0].Price;
         }
     }
 }
