@@ -12,14 +12,10 @@ namespace EventSearch
         private static readonly Random NextInt = new Random();
         private static readonly Event[] EventArray = new Event[NumberOfEvents];
         private static readonly List<string> EventList = new List<string>();
-
-        static IOrderedEnumerable<KeyValuePair<int, int>> _orderedPairs;
-
         private static readonly Dictionary<int, int> EventAndDistance = new Dictionary<int, int>();
-
-        static bool _awaitingCurrentLocation = true;
-
         private static readonly Regex LocationRegex = new Regex(@"-?\b(\d|1[0])\b,-?\b(\d|1[0])\b");
+        private static bool _awaitingCurrentLocation = true;
+        private static IOrderedEnumerable<KeyValuePair<int, int>> _orderedPairs;
 
         private static void Main()
         {
@@ -76,6 +72,7 @@ namespace EventSearch
             {
                 return false;
             }
+
             EventList.Add(locationOfEvent);
             return true;
         }
@@ -129,6 +126,7 @@ namespace EventSearch
                     counter++;
                 }
             }
+
             Console.WriteLine("Enter another location or \"exit\" to terminate");
         }
 
@@ -138,6 +136,7 @@ namespace EventSearch
             {
                 return "There are no tickets for this event";
             }
+
             return $"The cheapest ticket is ${EventArray[pair.Key].FindLowestPrice()}";
         }
     }
