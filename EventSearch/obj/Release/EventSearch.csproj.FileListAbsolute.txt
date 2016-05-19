@@ -1,0 +1,5 @@
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\bin\Release\EventSearch.exe.config
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\bin\Release\EventSearch.exe
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\bin\Release\EventSearch.pdb
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\obj\Release\EventSearch.exe
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\obj\Release\EventSearch.pdb

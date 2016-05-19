@@ -1,0 +1,6 @@
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\bin\Debug\EventSearch.exe.config
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\bin\Debug\EventSearch.exe
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\bin\Debug\EventSearch.pdb
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\obj\Debug\EventSearch.exe
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\obj\Debug\EventSearch.pdb
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearch\obj\Debug\EventSearch.csprojResolveAssemblyReference.cache
