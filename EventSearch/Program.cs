@@ -58,7 +58,7 @@ namespace EventSearch
                 var randLocationX = NextInt.Next(-10, 10);
                 var randLocationY = NextInt.Next(-10, 10);
 
-                if (CheckIfEventExists(randLocationX, randLocationY))
+                if (CheckNoEventExists(randLocationX, randLocationY))
                 {
                     var numberOfTickets = NextInt.Next(0, 5);
                     EventArray[counter] = new Event(counter, numberOfTickets, randLocationX, randLocationY);
@@ -68,7 +68,7 @@ namespace EventSearch
             }
         }
 
-        private static bool CheckIfEventExists(int locationX, int locationY)
+        private static bool CheckNoEventExists(int locationX, int locationY)
         {
             string locationOfEvent = $"{locationX}, {locationY}";
 
