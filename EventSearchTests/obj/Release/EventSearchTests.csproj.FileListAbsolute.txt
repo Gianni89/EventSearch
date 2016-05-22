@@ -1,0 +1,8 @@
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearchTests\bin\Release\EventSearchTests.dll
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearchTests\bin\Release\EventSearchTests.pdb
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearchTests\bin\Release\EventSearch.exe
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearchTests\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearchTests\bin\Release\EventSearch.pdb
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearchTests\obj\Release\EventSearchTests.csprojResolveAssemblyReference.cache
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearchTests\obj\Release\EventSearchTests.dll
+C:\Users\Gianni\Documents\Visual Studio 2015\Projects\EventSearch\EventSearchTests\obj\Release\EventSearchTests.pdb
