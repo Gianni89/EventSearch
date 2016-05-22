@@ -6,8 +6,6 @@ namespace EventSearch
 {
     public class EventDistances
     {
-        public static string UserInput { get; set; }
-
         public static Dictionary<Event, int> EventAndDistanceToEvent { get; set; } =
             new Dictionary<Event, int>();
 
@@ -15,7 +13,7 @@ namespace EventSearch
         {
             //Convert user input into usable location
             const char delimiter = ',';
-            var locationInputs = UserInput.Split(delimiter);
+            var locationInputs = EventSearch.UserInput.Split(delimiter);
             var currentLocationX = int.Parse(locationInputs[0]);
             var currentLocationY = int.Parse(locationInputs[1]);
 

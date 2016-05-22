@@ -6,6 +6,7 @@ namespace EventSearch
     internal class EventSearch
     {
         private static bool _awaitingCurrentLocation = true;
+        public static string UserInput { get; set; }
 
         //Only want to list the nearest 5 events
         private const int NumberOfEventsToList = 5;
@@ -18,21 +19,21 @@ namespace EventSearch
 
             while (_awaitingCurrentLocation)
             {
-                EventDistances.UserInput = Console.ReadLine();
+                UserInput = Console.ReadLine();
 
-                if (EventDistances.UserInput == "exit")
+                if (UserInput == "exit")
                 {
                     _awaitingCurrentLocation = false; //Will terminate the program
                 }
 
-                if (RegEx.CheckCurrentLocationFormat(EventDistances.UserInput))
+                if (RegEx.CheckCurrentLocationFormat(UserInput))
                     //Check format of user input is valid and in world range
                 {
                     PrintResult(EventDistances.FindNearestEvents()); //Prints the desired output
                     EventDistances.EventAndDistanceToEvent.Clear();
                     //Clears the eventAndDistanceToEvent dictionary to allow the user to input another location
                 }
-                else if (EventDistances.UserInput != "exit")
+                else if (UserInput != "exit")
                 {
                     Console.WriteLine(
                         "Please Input Coordinates with the following format: a,b within the range -10 to 10");
@@ -42,7 +43,7 @@ namespace EventSearch
 
         private static void PrintResult(Dictionary<Event, int> eventAndDistanceToEvent)
         {
-            Console.WriteLine($"Closest Events to ({EventDistances.UserInput})");
+            Console.WriteLine($"Closest Events to ({UserInput})");
             var counter = 0;
 
             foreach (var pair in eventAndDistanceToEvent)
